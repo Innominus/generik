@@ -373,7 +373,7 @@ impl ScrollStoryteller {
         let max_scroll = (current.scroll_height - current.viewport_height).max(0.0);
         let target_scroll = (clamped_progress * max_scroll) - self.config.offset_top;
 
-        let mut options = ScrollToOptions::new();
+        let options = ScrollToOptions::new();
         options.set_top(target_scroll);
         if self.config.smooth_scroll {
             options.set_behavior(ScrollBehavior::Smooth);
