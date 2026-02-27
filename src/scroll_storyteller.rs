@@ -159,7 +159,10 @@ impl ScrollStoryteller {
         let performance = window.performance().unwrap();
 
         // Initial values for full page calculation
-        let current_window_height = window.inner_height().unwrap().unchecked_into_f64();
+        let current_window_height = window
+            .visual_viewport()
+            .map(|viewport| viewport.height())
+            .unwrap_or_else(|| window.inner_height().unwrap().unchecked_into_f64());
         let current_body_height = body.client_height();
 
         let scroll_closure = Closure::wrap(Box::new(move || {
@@ -214,8 +217,11 @@ impl ScrollStoryteller {
                 resize_element.client_height() as f64 - offset_top - offset_bottom;
 
             if viewport_height as i32 == body.client_height() {
-                viewport_height -=
-                    viewport_height - window.inner_height().unwrap().unchecked_into_f64();
+                viewport_height -= viewport_height
+                    - window
+                        .visual_viewport()
+                        .map(|viewport| viewport.height())
+                        .unwrap_or_else(|| window.inner_height().unwrap().unchecked_into_f64());
             }
 
             let progress = ScrollProgress::new(scroll_y, scroll_height, viewport_height);

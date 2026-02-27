@@ -105,7 +105,7 @@ impl Intersectioner {
 
         _ = element.set_attribute(OBSERVER_ID_ATTRIBUTE, &callbacks.0.to_string());
 
-        callbacks.0 += 1;
+        callbacks.0 += callbacks.0.wrapping_add(1);
         self.observer.observe(element.unchecked_ref());
     }
 
@@ -118,5 +118,11 @@ impl Intersectioner {
 
         self.observer_callbacks.borrow_mut().1.remove(&id);
         self.observer.unobserve(element.unchecked_ref());
+    }
+}
+
+impl Drop for Intersectioner {
+    fn drop(&mut self) {
+        self.observer.disconnect();
     }
 }
