@@ -1,4 +1,6 @@
 pub mod cookies;
+#[cfg(feature = "components")]
+pub mod components;
 pub mod extensions;
 pub mod infinite_scroll;
 pub mod intersection_observer;

@@ -3,17 +3,35 @@ name = "generik"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+default = []
+components = [
+    "dep:gloo-timers",
+    "dep:leptos_meta",
+    "dep:wasm-bindgen-futures",
+    "web-sys/Document",
+    "web-sys/HtmlDivElement",
+    "web-sys/HtmlElement",
+    "web-sys/SubmitEvent",
+]
+
 [dependencies]
 anyhow = "1.0.100"
 chrono = {version = "0.4.43", features = ["serde"]}
 gloo-net = "0.6.0"
+gloo-timers = { version = "0.3.0", features = ["futures"], optional = true }
 js-sys = "0.3.85"
 leptos = "0.8.15"
+leptos_meta = { version = "0.8.5", optional = true }
 leptos_router = "0.8.11"
 serde = "1.0.228"
 serde-lite = "0.5.1"
 serde_json = "1.0.149"
 uuid = { version = "1.19.0", features = ["serde"]}
 wasm-bindgen = "0.2.108"
+wasm-bindgen-futures = { version = "0.4.58", optional = true }
+web-sys = {version = "0.3.85", features = ["Element", "DomRect", "HtmlDocument", "IntersectionObserver", "IntersectionObserverEntry", "IntersectionObserverInit", "ScrollBehavior", "ScrollToOptions", "Performance", "Window", "VisualViewport", "Document", "HtmlDivElement", "HtmlElement", "SubmitEvent", "Event"]}
+
+[dev-dependencies]
 wasm-bindgen-futures = "0.4.58"
-web-sys = {version = "0.3.85", features = ["Element", "DomRect", "HtmlDocument", "IntersectionObserver", "IntersectionObserverEntry", "IntersectionObserverInit", "ScrollBehavior", "ScrollToOptions", "Performance", "Window", "VisualViewport"]}
+js-sys = "0.3.85"
