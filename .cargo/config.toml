@@ -1,0 +1,6 @@
+# Apply Leptos type-erasure cfg to all wasm builds. This collapses per-closure
+# and per-component monomorphizations into shared type-erased call sites,
+# reducing wasm binary size by ~5-10% at the cost of one vtable dispatch per
+# reactive update. See https://github.com/leptos-rs/leptos/pull/4711
+[build]
+rustflags = ["--cfg", "erase_components"]

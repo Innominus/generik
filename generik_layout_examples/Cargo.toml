@@ -1,0 +1,15 @@
+[package]
+name = "generik_layout_examples"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+generik_layout = { path = "../generik_layout" }
+leptos = "0.8.15"
+console_error_panic_hook = "0.1.7"
+js-sys = "0.3.77"
+
+[features]
+default = ["csr"]
+csr = ["leptos/csr"]

@@ -1,0 +1,9 @@
+[package]
+name = "generik_layout"
+version = "0.1.0"
+edition = "2024"
+description = "Swiss/editorial layout components for Leptos: responsive 12-col grid, stack, cluster, sidebar, center, masonry. Self-contained CSS, no Tailwind required."
+license = "MIT"
+
+[dependencies]
+leptos = "0.8.15"

@@ -35,3 +35,13 @@ web-sys = {version = "0.3.85", features = ["Element", "DomRect", "HtmlDocument",
 [dev-dependencies]
 wasm-bindgen-futures = "0.4.58"
 js-sys = "0.3.85"
+
+[profile.release]
+# Binary-size optimisations for wasm.
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+
+[workspace]
+members = ["generik_layout", "generik_layout_examples"]
