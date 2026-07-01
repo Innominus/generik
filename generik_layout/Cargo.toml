@@ -7,3 +7,6 @@ license = "MIT"
 
 [dependencies]
 leptos = "0.8.15"
+generik_css_macros = { path = "../generik_css_macros" }
+[dev-dependencies]
+lightningcss = { version = "1.0.0-alpha.71", default-features = false }

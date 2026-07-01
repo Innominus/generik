@@ -103,6 +103,18 @@ impl Default for JustifyContent {
     }
 }
 
+/// Visual style of a `Rule`.
+#[derive(Debug, Default, PartialEq, Eq, Clone, Copy)]
+pub enum RuleVariant {
+    /// Thin solid line — the default section break.
+    #[default]
+    Thin,
+    /// Thick solid line — a stronger break or masthead baseline.
+    Thick,
+    /// Dotted line — a lighter, more decorative break.
+    Dotted,
+}
+
 /// Joins a base class string with an extra passthrough class, skipping empty extras.
 pub fn merge_class(base: &str, extra: &str) -> String {
     if extra.is_empty() {
@@ -177,5 +189,18 @@ mod tests {
         assert_eq!(JustifyContent::Between.css_value(), "space-between");
         assert_eq!(JustifyContent::Around.css_value(), "space-around");
         assert_eq!(JustifyContent::Evenly.css_value(), "space-evenly");
+    }
+
+    #[test]
+    fn rule_variant_default() {
+        assert_eq!(RuleVariant::default(), RuleVariant::Thin);
+    }
+
+    #[test]
+    fn rule_variant_variants() {
+        // Smoke test: the three variants are distinct.
+        assert_ne!(RuleVariant::Thin, RuleVariant::Thick);
+        assert_ne!(RuleVariant::Thick, RuleVariant::Dotted);
+        assert_ne!(RuleVariant::Dotted, RuleVariant::Thin);
     }
 }

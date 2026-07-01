@@ -1,0 +1,14 @@
+[package]
+name = "generik_css_macros"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+proc-macro = true
+
+[dependencies]
+lightningcss = { version = "1.0.0-alpha.71", default-features = false }
+proc-macro2 = "1"
+quote = "1"
+syn = "2"

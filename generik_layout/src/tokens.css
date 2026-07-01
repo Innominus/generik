@@ -1,0 +1,146 @@
+:root {
+  --gl-max-width: 1200px;
+  --gl-gap-sm: 0.5rem;
+  --gl-gap-md: 1.5rem;
+  --gl-gap-lg: 2.5rem;
+  --gl-pad: 1rem;
+  --gl-sidebar-width: 280px;
+  --gl-media-width: 160px;
+
+  /* ===== Editorial typography tokens ===== */
+  /* Font families (loaded by the consuming app via Google Fonts) */
+  --gl-font-display: "Inter", system-ui, sans-serif;
+  --gl-font-body: "Source Serif 4", Georgia, serif;
+  --gl-font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Type scale (modular, ratio ~1.25; display sizes fluid via clamp) */
+  --gl-text-xs: 0.75rem;
+  --gl-text-sm: 0.875rem;
+  --gl-text-base: 1rem;
+  --gl-text-lg: 1.125rem;
+  --gl-text-xl: 1.25rem;
+  --gl-text-2xl: 1.5rem;
+  --gl-text-3xl: 1.875rem;
+  --gl-text-4xl: 2.25rem;
+  --gl-text-display: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --gl-text-masthead: clamp(2rem, 4vw + 1rem, 3.5rem);
+
+  /* Leading */
+  --gl-leading-tight: 1.1;
+  --gl-leading-snug: 1.3;
+  --gl-leading-normal: 1.5;
+  --gl-leading-relaxed: 1.7;
+
+  /* Tracking */
+  --gl-tracking-tight: -0.02em;
+  --gl-tracking-normal: 0;
+  --gl-tracking-wide: 0.05em;
+  --gl-tracking-wider: 0.1em;
+  --gl-tracking-widest: 0.2em;
+
+  /* Measure (prose line length) */
+  --gl-measure: 65ch;
+  --gl-measure-narrow: 50ch;
+  --gl-measure-wide: 75ch;
+
+  /* Editorial color palette (warm-paper-leaning; override to theme) */
+  --gl-ink: #1a1a1a;
+  --gl-ink-soft: #444444;
+  --gl-ink-muted: #6b6b6b;
+  --gl-paper: #fafaf8;
+  --gl-paper-alt: #f4f2ee;
+  --gl-rule: #d8d4cc;
+  --gl-accent: #c1272d;
+}
+
+/* ===== Scoped box-sizing reset (no global side effects) ===== */
+[class^="gl-"], [class*=" gl-"] { box-sizing: border-box; }
+
+/* ===== Gap utility classes (shared by grid/stack/cluster/sidebar/masonry) ===== */
+.gl-gap-sm { gap: var(--gl-gap-sm); }
+.gl-gap-md { gap: var(--gl-gap-md); }
+.gl-gap-lg { gap: var(--gl-gap-lg); }
+
+/* ===== Editorial utility classes ===== */
+.gl-eyebrow {
+  font-family: var(--gl-font-mono);
+  text-transform: uppercase;
+  font-size: var(--gl-text-xs);
+  letter-spacing: var(--gl-tracking-widest);
+  color: var(--gl-ink-muted);
+  font-weight: 500;
+}
+.gl-display {
+  font-family: var(--gl-font-display);
+  font-size: var(--gl-text-display);
+  line-height: var(--gl-leading-tight);
+  letter-spacing: var(--gl-tracking-tight);
+  font-weight: 600;
+  color: var(--gl-ink);
+}
+.gl-masthead-title {
+  font-family: var(--gl-font-display);
+  font-size: var(--gl-text-masthead);
+  line-height: 1;
+  letter-spacing: var(--gl-tracking-tight);
+  font-weight: 700;
+  color: var(--gl-ink);
+}
+.gl-heading {
+  font-family: var(--gl-font-display);
+  font-weight: 600;
+  color: var(--gl-ink);
+  line-height: var(--gl-leading-tight);
+  letter-spacing: var(--gl-tracking-tight);
+}
+.gl-prose {
+  font-family: var(--gl-font-body);
+  font-size: var(--gl-text-base);
+  line-height: var(--gl-leading-relaxed);
+  color: var(--gl-ink);
+  max-width: var(--gl-measure);
+}
+.gl-prose > p + p {
+  margin-top: 1.25em;
+}
+.gl-meta {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  color: var(--gl-ink-muted);
+  letter-spacing: var(--gl-tracking-wide);
+}
+.gl-caption {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-sm);
+  color: var(--gl-ink-muted);
+  line-height: var(--gl-leading-normal);
+}
+.gl-lede {
+  font-family: var(--gl-font-body);
+  font-size: var(--gl-text-lg);
+  line-height: var(--gl-leading-snug);
+  color: var(--gl-ink-soft);
+  font-style: italic;
+}
+.gl-section {
+  padding-block: clamp(3rem, 8vw, 7rem);
+}
+.gl-stat-number {
+  font-family: var(--gl-font-display);
+  font-size: var(--gl-text-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--gl-tracking-tight);
+  color: var(--gl-ink);
+  font-variant-numeric: tabular-nums;
+}
+.gl-dropcap::first-letter {
+  float: left;
+  font-family: var(--gl-font-display);
+  font-size: 4.5em;
+  line-height: 0.85;
+  font-weight: 700;
+  margin-right: 0.08em;
+  margin-top: 0.04em;
+  color: var(--gl-accent);
+}

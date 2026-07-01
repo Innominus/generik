@@ -1,0 +1,21 @@
+/* ===== Card ===== */
+.gl-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--gl-card-border, #e5e7eb);
+  border-radius: 0.5rem;
+  background: var(--gl-card-bg, #fff);
+  overflow: hidden;
+}
+.gl-card-header {
+  padding: var(--gl-gap-md);
+  border-bottom: 1px solid var(--gl-card-border, #e5e7eb);
+}
+.gl-card-body {
+  padding: var(--gl-gap-md);
+  flex: 1 1 auto;
+}
+.gl-card-footer {
+  padding: var(--gl-gap-md);
+  border-top: 1px solid var(--gl-card-border, #e5e7eb);
+}

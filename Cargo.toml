@@ -43,5 +43,13 @@ lto = true
 codegen-units = 1
 strip = true
 
+# The proc-macro crate is a host build dep (never shipped in the wasm);
+# neutralise the size-optimisations above for it so it compiles faster.
+# (`lto` cannot be set per-package — it stays `true` from the workspace profile,
+# but opt-level/codegen-units are overridden here for faster host builds.)
+[profile.release.package.generik_css_macros]
+opt-level = 0
+codegen-units = 16
+
 [workspace]
-members = ["generik_layout", "generik_layout_examples"]
+members = ["generik_layout", "generik_layout_examples", "generik_css_macros"]

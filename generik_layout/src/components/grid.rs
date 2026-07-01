@@ -42,7 +42,7 @@ pub fn Grid(
 
 static COL_COUNTER: AtomicUsize = AtomicUsize::new(0);
 
-static COL_CSS_CACHE: LazyLock<Mutex<HashMap<ColConfig, usize>>> =
+static COL_CSS_CACHE: LazyLock<Mutex<HashMap<ColConfig, (usize, String)>>> =
     LazyLock::new(|| Mutex::new(HashMap::new()));
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
@@ -59,6 +59,29 @@ struct ColConfig {
     start_lg: Option<usize>,
     start_xl: Option<usize>,
     start_2xl: Option<usize>,
+}
+
+impl ColConfig {
+    /// True when the config matches the `Col` defaults (cols=12, no responsive
+    /// cols, no starts) — i.e. no per-instance `<style>` is needed.
+    ///
+    /// This is the single source of truth for the `Col` early-return decision.
+    /// `compute_col_css` has its own inline equivalent check (see the comment
+    /// there) which must stay in sync with this method.
+    fn is_all_default(&self) -> bool {
+        self.cols == 12
+            && self.cols_sm.is_none()
+            && self.cols_md.is_none()
+            && self.cols_lg.is_none()
+            && self.cols_xl.is_none()
+            && self.cols_2xl.is_none()
+            && self.start.is_none()
+            && self.start_sm.is_none()
+            && self.start_md.is_none()
+            && self.start_lg.is_none()
+            && self.start_xl.is_none()
+            && self.start_2xl.is_none()
+    }
 }
 
 /// A column inside a `Grid`. Mobile-first responsive span/start with cascade
@@ -105,27 +128,6 @@ pub fn Col(
     let start_xl = start_xl.map(|s| s.max(1));
     let start_2xl = start_2xl.map(|s| s.max(1));
 
-    let all_default = cols == 12
-        && cols_sm.is_none()
-        && cols_md.is_none()
-        && cols_lg.is_none()
-        && cols_xl.is_none()
-        && cols_2xl.is_none()
-        && start.is_none()
-        && start_sm.is_none()
-        && start_md.is_none()
-        && start_lg.is_none()
-        && start_xl.is_none()
-        && start_2xl.is_none();
-
-    if all_default {
-        let class_str = merge_class("gl-col", class);
-        return view! {
-            <div class=class_str style=style>{children()}</div>
-        }
-        .into_any();
-    }
-
     let config = ColConfig {
         cols,
         cols_sm,
@@ -141,22 +143,29 @@ pub fn Col(
         start_2xl,
     };
 
-    let id = {
-        let mut cache = COL_CSS_CACHE.lock().expect("COL_CSS_CACHE mutex poisoned");
-        if let Some(&existing_id) = cache.get(&config) {
-            existing_id
+    if config.is_all_default() {
+        let class_str = merge_class("gl-col", class);
+        return view! {
+            <div class=class_str style=style>{children()}</div>
+        }
+        .into_any();
+    }
+
+    let (class_name, css) = {
+        let mut cache = COL_CSS_CACHE.lock().unwrap_or_else(|e| e.into_inner());
+        if let Some((existing_id, existing_css)) = cache.get(&config) {
+            (format!("gl-col-{}", *existing_id), existing_css.clone())
         } else {
             let new_id = COL_COUNTER.fetch_add(1, Ordering::Relaxed);
-            cache.insert(config, new_id);
-            new_id
+            let (new_class_name, new_css) = compute_col_css(
+                new_id, cols, cols_sm, cols_md, cols_lg, cols_xl, cols_2xl, start, start_sm,
+                start_md, start_lg, start_xl, start_2xl,
+            )
+            .expect("non-default Col always yields Some");
+            cache.insert(config, (new_id, new_css.clone()));
+            (new_class_name, new_css)
         }
     };
-
-    let (class_name, css) = compute_col_css(
-        id, cols, cols_sm, cols_md, cols_lg, cols_xl, cols_2xl, start, start_sm, start_md,
-        start_lg, start_xl, start_2xl,
-    )
-    .expect("non-default Col always yields Some");
 
     let class_str = merge_class(&format!("gl-col {class_name}"), class);
 
@@ -192,6 +201,8 @@ pub(crate) fn compute_col_css(
     let responsive_cols = [cols_sm, cols_md, cols_lg, cols_xl, cols_2xl];
     let responsive_starts = [start_sm, start_md, start_lg, start_xl, start_2xl];
 
+    // Must match `ColConfig::is_all_default` (see `Col`). Kept inline so this
+    // pure function stays self-contained and unit-testable without a struct.
     let all_default = cols == 12
         && start.is_none()
         && responsive_cols.iter().all(Option::is_none)

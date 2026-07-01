@@ -1,0 +1,16 @@
+/* ===== MediaObject ===== */
+.gl-media-object {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .gl-media-object {
+    grid-template-columns: var(--gl-media-width, 160px) 1fr;
+  }
+  .gl-media-object-right {
+    grid-template-columns: 1fr var(--gl-media-width, 160px);
+  }
+}
+/* gl-media-media / gl-media-body: positional grid children; intentionally
+   unstyled. Exposed as consumer styling hooks (e.g. for padding, backgrounds). */

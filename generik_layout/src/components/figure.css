@@ -1,0 +1,13 @@
+/* ===== Figure ===== */
+.gl-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-gap-sm);
+}
+.gl-figure-media { margin: 0; }
+.gl-figure-caption {
+  font-size: 0.875rem;
+  color: var(--gl-caption-color, #555);
+  line-height: 1.4;
+}

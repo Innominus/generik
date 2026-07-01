@@ -1,0 +1,4 @@
+/* ===== Measure ===== */
+.gl-measure {
+  max-width: var(--gl-measure);
+}

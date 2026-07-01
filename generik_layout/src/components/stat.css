@@ -1,0 +1,6 @@
+/* ===== Stat ===== */
+.gl-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-gap-sm);
+}

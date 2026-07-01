@@ -18,8 +18,10 @@ const SHOWCASE_SRC: &str = include_str!("showcase.rs");
 /// markers. Returns the trimmed code between the markers (markers excluded).
 /// Returns an error message string if the markers aren't found.
 fn extract_region(src: &str, name: &str) -> String {
-    let begin = format!("// BEGIN {name}");
-    let end = format!("// END {name}");
+    // Markers are always on their own line; newline-bound to avoid false matches
+    // inside string literals or comments.
+    let begin = format!("\n// BEGIN {name}\n");
+    let end = format!("\n// END {name}\n");
     let start = match src.find(&begin) {
         Some(i) => i + begin.len(),
         None => return format!("// markers not found for {name}"),

@@ -28,5 +28,5 @@ pub mod shared;
 pub mod styles;
 
 pub use components::*;
-pub use shared::{merge_class, AlignItems, Gutter, JustifyContent, Side};
+pub use shared::{merge_class, AlignItems, Gutter, JustifyContent, RuleVariant, Side};
 pub use styles::LAYOUT_CSS;

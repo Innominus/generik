@@ -1,0 +1,20 @@
+/* ===== Rule ===== */
+.gl-rule {
+  display: flex;
+  align-items: center;
+  gap: var(--gl-gap-md);
+  width: 100%;
+  margin-block: var(--gl-gap-md);
+}
+.gl-rule-line { flex: 1; height: 0; }
+.gl-rule-thin { border-top: 1px solid var(--gl-rule); }
+.gl-rule-thick { border-top: 3px solid var(--gl-ink); }
+.gl-rule-dotted { border-top: 1px dotted var(--gl-rule); }
+.gl-rule-label {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  letter-spacing: var(--gl-tracking-widest);
+  text-transform: uppercase;
+  color: var(--gl-ink-muted);
+  white-space: nowrap;
+}

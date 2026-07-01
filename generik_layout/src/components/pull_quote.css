@@ -1,0 +1,17 @@
+/* ===== PullQuote ===== */
+.gl-pullquote {
+  margin: 0;
+  padding: 0;
+  border-left: 3px solid var(--gl-accent, currentColor);
+  padding-left: var(--gl-gap-md);
+}
+.gl-pullquote-text {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.gl-pullquote-attribution {
+  margin-top: var(--gl-gap-sm);
+  font-size: 0.875rem;
+  color: var(--gl-caption-color, #555);
+}

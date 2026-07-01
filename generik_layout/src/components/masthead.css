@@ -1,0 +1,12 @@
+/* ===== Masthead ===== */
+.gl-masthead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-gap-sm);
+  padding-block: var(--gl-gap-md);
+}
+.gl-masthead-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-gap-sm);
+}

@@ -1,0 +1,20 @@
+/* ===== Sidebar ===== */
+/* Mobile-first: single column on small screens. */
+.gl-sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-inline: var(--gl-pad);
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--gl-max-width);
+}
+@media (min-width: 768px) {
+  .gl-sidebar {
+    grid-template-columns: var(--gl-sidebar-width) 1fr;
+  }
+  .gl-sidebar-right {
+    grid-template-columns: 1fr var(--gl-sidebar-width);
+  }
+}
+/* gl-sidebar-main / gl-sidebar-side: positional grid children; intentionally
+   unstyled. Exposed as consumer styling hooks (e.g. for padding, backgrounds). */

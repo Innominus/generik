@@ -1,7 +1,8 @@
 use leptos::prelude::*;
 
-use generik_layout::LayoutStyles;
+use generik_layout::{LayoutStyles, Rule, RuleVariant};
 
+use crate::atf::AboveTheFold;
 use crate::code_viewer::{example_source, CodeBlock};
 use crate::examples::*;
 use crate::showcase::Showcase;
@@ -10,16 +11,16 @@ use crate::showcase::Showcase;
 pub fn App() -> impl IntoView {
     view! {
         <LayoutStyles/>
-        <div class="min-h-screen bg-neutral-50 text-neutral-900 antialiased">
-            <header class="border-b border-neutral-200 bg-white">
-                <div class="mx-auto max-w-6xl px-6 py-10">
-                    <p class="text-xs uppercase tracking-[0.2em] text-neutral-500">
+        <div class="min-h-screen bg-paper text-ink antialiased font-body">
+            <header class="border-b border-rule bg-paper">
+                <div class="mx-auto max-w-6xl px-6 py-16">
+                    <p class="gl-eyebrow">
                         "generik_layout"
                     </p>
-                    <h1 class="mt-2 text-4xl font-semibold tracking-tight">
+                    <h1 class="gl-heading mt-2 text-4xl md:text-5xl">
                         "Swiss / editorial layout primitives for Leptos"
                     </h1>
-                    <p class="mt-3 max-w-2xl text-neutral-600">
+                    <p class="mt-3 max-w-2xl text-ink-soft font-body">
                         "Interactive examples for every layout component. Each card below \
                         exposes live controls bound to reactive signals — resize your \
                         window and toggle the props to see the responsive behaviour."
@@ -27,7 +28,13 @@ pub fn App() -> impl IntoView {
                 </div>
             </header>
 
-            <main class="mx-auto max-w-6xl px-6 py-12 space-y-16">
+            // Above-the-fold editorial sections, full-width (outside the constrained main).
+            <AboveTheFold/>
+
+            // A thin rule separating the ATF hero from the per-component reference.
+            <Rule variant=RuleVariant::Thin/>
+
+            <main class="mx-auto max-w-6xl px-6 py-20 space-y-20">
                 <Section title="Grid + Col" description="A 12-column responsive grid. Adjust the md breakpoint span and start, and the gap." code_name="GridExample">
                     <GridExample/>
                 </Section>
@@ -67,12 +74,14 @@ pub fn App() -> impl IntoView {
                 <Section title="Card" description="A general-purpose card with optional header, body, and footer slots." code_name="CardExample">
                     <CardExample/>
                 </Section>
-
-                <ShowcaseSection/>
             </main>
 
-            <footer class="border-t border-neutral-200 bg-white">
-                <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-neutral-500">
+            // Combined showcase — full-width (outside the constrained main) so its
+            // full-bleed hero/ink panels and edge-to-edge rules read as intended.
+            <ShowcaseSection/>
+
+            <footer class="border-t border-rule bg-paper-alt">
+                <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-ink-muted font-mono">
                     "generik_layout examples — built with Leptos 0.8 + Tailwind Play CDN."
                 </div>
             </footer>
@@ -94,12 +103,12 @@ fn Section(
     let source = example_source(code_name);
 
     view! {
-        <section class="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
-            <div class="flex flex-col gap-1 border-b border-neutral-100 pb-4 mb-6">
+        <section class="rounded-lg border border-rule bg-paper-alt p-8 shadow-sm">
+            <div class="flex flex-col gap-1 border-b border-rule pb-6 mb-8">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-semibold tracking-tight">{title}</h2>
-                        <p class="text-sm text-neutral-600">{description}</p>
+                        <h2 class="gl-heading text-2xl">{title}</h2>
+                        <p class="text-sm text-ink-soft font-body mt-1">{description}</p>
                     </div>
                     <TabToggle show_code/>
                 </div>
@@ -119,13 +128,13 @@ fn Section(
 #[component]
 fn TabToggle(show_code: RwSignal<bool>) -> impl IntoView {
     view! {
-        <div class="flex rounded-md border border-neutral-200 overflow-hidden text-xs font-medium">
+        <div class="flex rounded-md border border-rule overflow-hidden text-xs font-mono uppercase tracking-wider">
             <button
                 type="button"
                 class=move || if show_code.get() {
-                    "px-3 py-1.5 text-neutral-500 hover:bg-neutral-50"
+                    "px-3 py-1.5 text-ink-muted hover:bg-paper-alt hover:text-ink"
                 } else {
-                    "px-3 py-1.5 bg-neutral-900 text-white"
+                    "px-3 py-1.5 bg-ink text-paper"
                 }
                 on:click=move |_| show_code.set(false)
             >
@@ -134,9 +143,9 @@ fn TabToggle(show_code: RwSignal<bool>) -> impl IntoView {
             <button
                 type="button"
                 class=move || if show_code.get() {
-                    "px-3 py-1.5 bg-neutral-900 text-white"
+                    "px-3 py-1.5 bg-ink text-paper"
                 } else {
-                    "px-3 py-1.5 text-neutral-500 hover:bg-neutral-50"
+                    "px-3 py-1.5 text-ink-muted hover:bg-paper-alt hover:text-ink"
                 }
                 on:click=move |_| show_code.set(true)
             >
@@ -154,17 +163,17 @@ fn ShowcaseSection() -> impl IntoView {
     let show_code = RwSignal::new(false);
 
     view! {
-        <section class="pt-8 border-t border-neutral-200">
+        <section class="pt-16 mt-16 border-t border-rule">
             <div class="mx-auto max-w-6xl">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <p class="text-xs uppercase tracking-[0.2em] text-neutral-500">
+                        <p class="gl-eyebrow">
                             "Combined showcase"
                         </p>
-                        <h2 class="mt-2 text-3xl font-semibold tracking-tight">
+                        <h2 class="gl-heading mt-2 text-3xl md:text-4xl">
                             "Editorial homepage"
                         </h2>
-                        <p class="mt-2 max-w-2xl text-neutral-600">
+                        <p class="mt-2 max-w-2xl text-ink-soft font-body">
                             "Every layout component composed into one Swiss-magazine page. \
                             Use the density toggle to reshape the whole layout at once."
                         </p>

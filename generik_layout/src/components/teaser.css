@@ -1,0 +1,30 @@
+/* ===== Teaser ===== */
+.gl-teaser {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-gap-sm);
+}
+.gl-teaser-media {
+  aspect-ratio: 4 / 3;
+  background: var(--gl-paper-alt);
+  border: 1px solid var(--gl-rule);
+}
+.gl-teaser-eyebrow {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  letter-spacing: var(--gl-tracking-widest);
+  text-transform: uppercase;
+  color: var(--gl-ink-muted);
+}
+.gl-teaser-title {
+  font-family: var(--gl-font-display);
+  font-size: var(--gl-text-xl);
+  font-weight: 600;
+  color: var(--gl-ink);
+  line-height: var(--gl-leading-tight);
+}
+.gl-teaser-meta {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  color: var(--gl-ink-muted);
+}

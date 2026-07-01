@@ -1,0 +1,40 @@
+/* ===== IndexItem ===== */
+.gl-index-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gl-gap-md);
+  padding-block: var(--gl-gap-sm);
+  border-bottom: 1px solid var(--gl-rule);
+}
+.gl-index-item-number {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-sm);
+  color: var(--gl-ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.gl-index-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.gl-index-item-category {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  letter-spacing: var(--gl-tracking-widest);
+  text-transform: uppercase;
+  color: var(--gl-ink-muted);
+}
+.gl-index-item-title {
+  font-family: var(--gl-font-display);
+  font-size: var(--gl-text-lg);
+  font-weight: 600;
+  color: var(--gl-ink);
+  line-height: var(--gl-leading-tight);
+}
+.gl-index-item-meta {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  color: var(--gl-ink-muted);
+  white-space: nowrap;
+}

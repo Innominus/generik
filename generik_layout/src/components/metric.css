@@ -1,0 +1,20 @@
+/* ===== Metric ===== */
+.gl-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-gap-sm);
+}
+.gl-metric-value {
+  font-family: var(--gl-font-display);
+  font-size: var(--gl-text-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--gl-tracking-tight);
+  color: var(--gl-ink);
+  font-variant-numeric: tabular-nums;
+}
+.gl-metric-delta {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-sm);
+  font-weight: 500;
+}

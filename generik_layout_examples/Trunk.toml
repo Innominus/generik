@@ -1,6 +1,0 @@
-[build]
-public_url = "./"
-
-[[hooks]]
-stage = "post_build"
-command = "./optimize-wasm.sh"

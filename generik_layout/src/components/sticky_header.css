@@ -1,0 +1,37 @@
+/* ===== StickyHeader ===== */
+.gl-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gl-gap-md);
+  padding-block: var(--gl-gap-sm);
+  padding-inline: var(--gl-pad);
+  background: var(--gl-paper);
+  border-bottom: 1px solid var(--gl-rule);
+}
+.gl-sticky-header-wordmark {
+  font-family: var(--gl-font-display);
+  font-size: var(--gl-text-sm);
+  font-weight: 700;
+  letter-spacing: var(--gl-tracking-tight);
+  color: var(--gl-ink);
+}
+.gl-sticky-header-nav {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gl-gap-sm);
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--gl-tracking-wide);
+  color: var(--gl-ink-muted);
+}
+.gl-sticky-header-issue {
+  font-family: var(--gl-font-mono);
+  font-size: var(--gl-text-xs);
+  color: var(--gl-ink-muted);
+  white-space: nowrap;
+}

@@ -1,0 +1,10 @@
+/* ===== Masonry ===== */
+.gl-masonry {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-auto-rows: minmax(80px, auto);
+  width: 100%;
+  max-width: var(--gl-max-width);
+  margin-inline: auto;
+  padding-inline: var(--gl-pad);
+}
