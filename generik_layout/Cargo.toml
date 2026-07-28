@@ -5,8 +5,15 @@ edition = "2024"
 description = "Swiss/editorial layout components for Leptos: responsive 12-col grid, stack, cluster, sidebar, center, masonry. Self-contained CSS, no Tailwind required."
 license = "MIT"
 
+[features]
+default = ["leptos"]
+leptos = ["dep:leptos"]
+silkenweb = ["dep:silkenweb"]
+
 [dependencies]
-leptos = "0.8.15"
 generik_css_macros = { path = "../generik_css_macros" }
+leptos = { version = "0.8.15", optional = true }
+silkenweb = { git = "https://github.com/silkenweb/silkenweb.git", rev = "8b6a768d9e6334e4b88f62f623e1a340da659b6c", optional = true }
+
 [dev-dependencies]
 lightningcss = { version = "1.0.0-alpha.71", default-features = false }

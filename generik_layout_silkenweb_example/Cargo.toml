@@ -1,0 +1,11 @@
+[package]
+name = "generik_layout_silkenweb_example"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+generik_layout = { path = "../generik_layout", default-features = false, features = [
+  "silkenweb",
+] }
+silkenweb = { git = "https://github.com/silkenweb/silkenweb.git", rev = "8b6a768d9e6334e4b88f62f623e1a340da659b6c" }

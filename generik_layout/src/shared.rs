@@ -8,9 +8,10 @@ pub const BREAKPOINTS: [(u32, &str); 5] = [
 ];
 
 /// Gap size used by grid/stack/cluster/sidebar/masonry via the `gl-gap-*` classes.
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Default)]
 pub enum Gutter {
     Sm,
+    #[default]
     Md,
     Lg,
 }
@@ -26,29 +27,19 @@ impl Gutter {
     }
 }
 
-impl Default for Gutter {
-    fn default() -> Self {
-        Gutter::Md
-    }
-}
-
 /// Which side a narrow element sits on (Sidebar media, MediaObject media).
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Default)]
 pub enum Side {
+    #[default]
     Left,
     Right,
 }
 
-impl Default for Side {
-    fn default() -> Self {
-        Side::Left
-    }
-}
-
 /// Flexbox `align-items` values for Cluster.
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Default)]
 pub enum AlignItems {
     Start,
+    #[default]
     Center,
     End,
     Stretch,
@@ -67,15 +58,10 @@ impl AlignItems {
     }
 }
 
-impl Default for AlignItems {
-    fn default() -> Self {
-        AlignItems::Center
-    }
-}
-
 /// Flexbox `justify-content` values for Cluster.
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Default)]
 pub enum JustifyContent {
+    #[default]
     Start,
     Center,
     End,
@@ -94,12 +80,6 @@ impl JustifyContent {
             JustifyContent::Around => "space-around",
             JustifyContent::Evenly => "space-evenly",
         }
-    }
-}
-
-impl Default for JustifyContent {
-    fn default() -> Self {
-        JustifyContent::Start
     }
 }
 

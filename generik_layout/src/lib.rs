@@ -1,9 +1,9 @@
-//! Swiss/editorial layout components for Leptos 0.8.
+//! Swiss/editorial layout components for Leptos 0.8 and Silkenweb.
 //!
 //! A self-contained layout primitive library: responsive 12-column grid, stack,
-//! cluster, sidebar, center, and masonry components. Ships its own CSS in one
-//! `gl-`-namespaced string (no Tailwind required) and injects it once via the
-//! `LayoutStyles` component.
+//! cluster, sidebar, center, and masonry components. It ships one global
+//! `gl-`-namespaced CSS contract (no Tailwind required), injected with Leptos
+//! [`LayoutStyles`](components::LayoutStyles) or Silkenweb [`silkenweb::mount_styles`].
 //!
 //! # Usage
 //!
@@ -23,10 +23,17 @@
 //! }
 //! ```
 
-pub mod components;
+mod col_css;
 pub mod shared;
 pub mod styles;
 
+#[cfg(feature = "leptos")]
+pub mod components;
+
+#[cfg(feature = "silkenweb")]
+pub mod silkenweb;
+
+#[cfg(feature = "leptos")]
 pub use components::*;
 pub use shared::{merge_class, AlignItems, Gutter, JustifyContent, RuleVariant, Side};
 pub use styles::LAYOUT_CSS;

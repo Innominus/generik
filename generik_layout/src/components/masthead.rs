@@ -1,8 +1,8 @@
 use leptos::prelude::*;
 
 use crate::components::rule::Rule;
-use crate::shared::RuleVariant;
 use crate::shared::merge_class;
+use crate::shared::RuleVariant;
 
 /// A publication masthead: the title block at the top of an editorial page.
 /// Renders the publication name in the display font, with an issue/date line
