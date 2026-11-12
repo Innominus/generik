@@ -74,4 +74,5 @@ members = [
   "generik_layout_examples",
   "generik_layout_silkenweb_example",
   "generik_css_macros",
+  "generik_resize",
 ]

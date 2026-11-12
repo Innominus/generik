@@ -862,6 +862,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "generik_resize"
+version = "0.1.0"
+dependencies = [
+ "js-sys",
+ "web-sys",
+]
+
+[[package]]
 name = "gensym"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

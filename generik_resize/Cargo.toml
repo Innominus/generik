@@ -1,0 +1,11 @@
+[package]
+name = "generik_resize"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "One shared ResizeObserver for WASM apps: subscribe an element with a callback, unsubscribe by dropping the handle."
+license = "MIT"
+
+[dependencies]
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["Element", "ResizeObserver", "ResizeObserverEntry"] }
