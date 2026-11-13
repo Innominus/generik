@@ -36,7 +36,6 @@ mod wasm {
     struct SharedResizeObserverState {
         next_id: u32,
         subscriptions: Vec<ResizeSubscription>,
-        observed_counts: Vec<(Element, usize)>,
     }
 
     struct SharedResizeObserver {
@@ -103,43 +102,24 @@ mod wasm {
                 return;
             };
 
-            let removed_element = {
-                let mut state = observer.state.borrow_mut();
-                let Some(index) = state
-                    .subscriptions
-                    .iter()
-                    .position(|subscription| subscription.id == subscription_id)
-                else {
-                    return;
-                };
-
-                let removed = state.subscriptions.remove(index);
-                if let Some((_, count)) = state
-                    .observed_counts
-                    .iter_mut()
-                    .find(|(element, _)| *element == removed.element)
-                {
-                    *count = count.saturating_sub(1);
-                }
-                removed.element
+            let mut state = observer.state.borrow_mut();
+            let Some(index) = state
+                .subscriptions
+                .iter()
+                .position(|subscription| subscription.id == subscription_id)
+            else {
+                return;
             };
+            let removed = state.subscriptions.remove(index);
+            let still_observed = state
+                .subscriptions
+                .iter()
+                .any(|subscription| subscription.element == removed.element);
+            // Release the state before the callback drops, in case it owns a handle.
+            drop(state);
 
-            let should_unobserve = {
-                let mut state = observer.state.borrow_mut();
-                if let Some(index) = state
-                    .observed_counts
-                    .iter()
-                    .position(|(element, count)| *element == removed_element && *count == 0)
-                {
-                    state.observed_counts.remove(index);
-                    true
-                } else {
-                    false
-                }
-            };
-
-            if should_unobserve {
-                observer.observer.unobserve(&removed_element);
+            if !still_observed {
+                observer.observer.unobserve(&removed.element);
             }
         });
     }
@@ -151,23 +131,15 @@ mod wasm {
             let mut state = observer.state.borrow_mut();
             let subscription_id = state.next_id;
             state.next_id = state.next_id.wrapping_add(1);
+            let should_observe = !state
+                .subscriptions
+                .iter()
+                .any(|subscription| subscription.element == *element);
             state.subscriptions.push(ResizeSubscription {
                 id: subscription_id,
                 element: element.clone(),
                 callback,
             });
-
-            let mut should_observe = false;
-            if let Some((_, count)) = state
-                .observed_counts
-                .iter_mut()
-                .find(|(observed, _)| *observed == *element)
-            {
-                *count += 1;
-            } else {
-                state.observed_counts.push((element.clone(), 1));
-                should_observe = true;
-            }
             drop(state);
 
             if should_observe {
